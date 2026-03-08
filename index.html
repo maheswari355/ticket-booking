@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartTicket Booking</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins;}
+
+body{
+background:linear-gradient(135deg,#5f6dfb,#8f44fd,#ff5fa2);
+min-height:100vh;
+}
+
+/* HEADER */
+
+header{
+background:white;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 40px;
+box-shadow:0 5px 15px rgba(0,0,0,.2);
+}
+
+.logo{
+font-size:26px;
+font-weight:700;
+background:linear-gradient(90deg,#5f6dfb,#ff5fa2);
+-webkit-background-clip:text;
+color:transparent;
+}
+
+nav a{
+margin:0 10px;
+text-decoration:none;
+color:#333;
+cursor:pointer;
+font-weight:500;
+}
+
+nav a:hover{color:#5f6dfb;}
+
+.login-btn{
+background:#ff5fa2;
+color:white;
+border:none;
+padding:8px 18px;
+border-radius:20px;
+cursor:pointer;
+}
+
+/* HERO */
+
+.hero{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:60px;
+padding:70px;
+color:white;
+flex-wrap:wrap;
+}
+
+.hero h1{
+font-size:42px;
+}
+
+.girl{
+font-size:120px;
+animation:float 3s ease-in-out infinite;
+}
+
+.hand{
+display:inline-block;
+animation:wave 1.2s infinite;
+transform-origin:70% 70%;
+}
+
+@keyframes wave{
+0%{transform:rotate(0deg)}
+25%{transform:rotate(20deg)}
+50%{transform:rotate(-10deg)}
+75%{transform:rotate(20deg)}
+100%{transform:rotate(0deg)}
+}
+
+@keyframes float{
+0%{transform:translateY(0)}
+50%{transform:translateY(-15px)}
+100%{transform:translateY(0)}
+}
+
+/* CARDS */
+
+.container{padding:40px;}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:25px;
+}
+
+.card{
+background:white;
+padding:30px;
+border-radius:18px;
+text-align:center;
+cursor:pointer;
+box-shadow:0 15px 30px rgba(0,0,0,.25);
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-10px) scale(1.05);
+}
+
+.icon{
+font-size:45px;
+margin-bottom:10px;
+}
+
+/* BOOKING */
+
+.section{
+display:none;
+padding:40px;
+}
+
+.booking{
+background:white;
+padding:25px;
+border-radius:12px;
+max-width:420px;
+box-shadow:0 15px 30px rgba(0,0,0,.3);
+}
+
+.booking input,.booking select{
+width:100%;
+padding:10px;
+margin:8px 0;
+border-radius:8px;
+border:1px solid #ccc;
+}
+
+.summary{
+background:#eef2ff;
+padding:10px;
+border-radius:6px;
+margin-top:10px;
+}
+
+.book-btn{
+background:#5f6dfb;
+color:white;
+border:none;
+padding:10px;
+width:100%;
+border-radius:6px;
+margin-top:10px;
+cursor:pointer;
+}
+
+.back-btn{
+margin-top:20px;
+background:#333;
+color:white;
+border:none;
+padding:8px 18px;
+border-radius:6px;
+cursor:pointer;
+}
+
+/* LOGIN */
+
+.login-modal{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.6);
+display:none;
+justify-content:center;
+align-items:center;
+}
+
+.login-box{
+background:white;
+padding:30px;
+border-radius:12px;
+width:300px;
+}
+
+.login-box input{
+width:100%;
+padding:10px;
+margin:8px 0;
+}
+
+footer{
+margin-top:40px;
+background:#111;
+color:#aaa;
+text-align:center;
+padding:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">SmartTicket</div>
+
+<nav>
+<a onclick="goHome()">Home</a>
+<a onclick="openPage('movies')">Movies</a>
+<a onclick="openPage('train')">Train</a>
+<a onclick="openPage('bus')">Bus</a>
+<a onclick="openPage('flight')">Flight</a>
+<a onclick="openPage('hotel')">Hotel</a>
+<a onclick="openPage('about')">About</a>
+</nav>
+
+<button class="login-btn" onclick="openLogin()">Login</button>
+
+</header>
+
+<!-- HOME -->
+
+<div id="home">
+
+<div class="hero">
+
+<div>
+<h1>Welcome to SmartTicket <span class="hand">👋</span></h1>
+<p>Book movies, travel tickets, and hotel stays easily.</p>
+</div>
+
+<div class="girl">👩</div>
+
+</div>
+
+<div class="container">
+
+<div class="grid">
+
+<div class="card" onclick="openPage('movies')">
+<div class="icon">🎬</div>
+<h3>Movies</h3>
+</div>
+
+<div class="card" onclick="openPage('train')">
+<div class="icon">🚆</div>
+<h3>Train</h3>
+</div>
+
+<div class="card" onclick="openPage('bus')">
+<div class="icon">🚌</div>
+<h3>Bus</h3>
+</div>
+
+<div class="card" onclick="openPage('flight')">
+<div class="icon">✈️</div>
+<h3>Flight</h3>
+</div>
+
+<div class="card" onclick="openPage('hotel')">
+<div class="icon">🏨</div>
+<h3>Hotel</h3>
+</div>
+
+</div>
+</div>
+</div>
+
+<!-- MOVIE -->
+
+<div id="movies" class="section">
+<h2>Movie Booking</h2>
+<div class="booking">
+<p>Available Tickets: <b id="movieAvail">100</b></p>
+<p>Price: ₹<span id="moviePrice">200</span></p>
+<select id="movieQty" onchange="calc('movie')">
+<option value="0">Select Tickets</option>
+<option>1</option>
+<option>2</option>
+<option>3</option>
+</select>
+<div class="summary">Total ₹ <span id="movieTotal">0</span></div>
+<button class="book-btn" onclick="book('movie')">Book</button>
+</div>
+<button class="back-btn" onclick="goHome()">Back</button>
+</div>
+
+<!-- TRAIN -->
+
+<div id="train" class="section">
+<h2>Train Booking</h2>
+<div class="booking">
+<p>Available Tickets: <b id="trainAvail">150</b></p>
+<p>Price: ₹<span id="trainPrice">500</span></p>
+<select id="trainQty" onchange="calc('train')">
+<option value="0">Select Tickets</option>
+<option>1</option>
+<option>2</option>
+<option>3</option>
+</select>
+<div class="summary">Total ₹ <span id="trainTotal">0</span></div>
+<button class="book-btn" onclick="book('train')">Book</button>
+</div>
+<button class="back-btn" onclick="goHome()">Back</button>
+</div>
+
+<!-- BUS -->
+
+<div id="bus" class="section">
+<h2>Bus Booking</h2>
+<div class="booking">
+<p>Available Tickets: <b id="busAvail">80</b></p>
+<p>Price: ₹<span id="busPrice">300</span></p>
+<select id="busQty" onchange="calc('bus')">
+<option value="0">Select Tickets</option>
+<option>1</option>
+<option>2</option>
+<option>3</option>
+</select>
+<div class="summary">Total ₹ <span id="busTotal">0</span></div>
+<button class="book-btn" onclick="book('bus')">Book</button>
+</div>
+<button class="back-btn" onclick="goHome()">Back</button>
+</div>
+
+<!-- FLIGHT -->
+
+<div id="flight" class="section">
+<h2>Flight Booking</h2>
+<div class="booking">
+<p>Available Tickets: <b id="flightAvail">60</b></p>
+<p>Price: ₹<span id="flightPrice">3500</span></p>
+<select id="flightQty" onchange="calc('flight')">
+<option value="0">Select Tickets</option>
+<option>1</option>
+<option>2</option>
+</select>
+<div class="summary">Total ₹ <span id="flightTotal">0</span></div>
+<button class="book-btn" onclick="book('flight')">Book</button>
+</div>
+<button class="back-btn" onclick="goHome()">Back</button>
+</div>
+
+<!-- HOTEL -->
+
+<div id="hotel" class="section">
+<h2>Hotel Booking</h2>
+<div class="booking">
+<p>Available Rooms: <b id="hotelAvail">25</b></p>
+<p>Price: ₹<span id="hotelPrice">1500</span></p>
+<select id="hotelQty" onchange="calc('hotel')">
+<option value="0">Select Rooms</option>
+<option>1</option>
+<option>2</option>
+</select>
+<div class="summary">Total ₹ <span id="hotelTotal">0</span></div>
+<button class="book-btn" onclick="book('hotel')">Book</button>
+</div>
+<button class="back-btn" onclick="goHome()">Back</button>
+</div>
+
+<!-- ABOUT -->
+
+<div id="about" class="section">
+<h2>About SmartTicket</h2>
+<p style="background:white;padding:25px;border-radius:10px;max-width:700px">
+SmartTicket is a unified platform that helps users easily book entertainment and travel services in one place. Visitors can explore movie tickets, train journeys, bus routes, flight travel, and hotel accommodations through a simple and organized interface. The system focuses on providing a smooth booking experience by allowing users to check availability, view pricing, and reserve tickets quickly.
+</p>
+<button class="back-btn" onclick="goHome()">Back</button>
+</div>
+
+<!-- LOGIN -->
+
+<div class="login-modal" id="loginModal">
+<div class="login-box">
+<h3>Login</h3>
+<input placeholder="Email">
+<input type="password" placeholder="Password">
+<button class="book-btn" onclick="closeLogin()">Login</button>
+</div>
+</div>
+
+<footer>
+© 2026 SmartTicket Booking Platform
+</footer>
+
+<script>
+
+function openPage(page){
+document.getElementById("home").style.display="none";
+document.querySelectorAll(".section").forEach(s=>s.style.display="none");
+document.getElementById(page).style.display="block";
+}
+
+function goHome(){
+document.querySelectorAll(".section").forEach(s=>s.style.display="none");
+document.getElementById("home").style.display="block";
+}
+
+function calc(type){
+let qty=document.getElementById(type+"Qty").value;
+let price=document.getElementById(type+"Price").innerText;
+document.getElementById(type+"Total").innerText=qty*price;
+}
+
+function book(type){
+let qty=parseInt(document.getElementById(type+"Qty").value);
+let avail=parseInt(document.getElementById(type+"Avail").innerText);
+
+if(qty==0){alert("Please select tickets");return}
+if(qty>avail){alert("Not enough tickets");return}
+
+document.getElementById(type+"Avail").innerText=avail-qty;
+
+alert("Booking Successful 🎉");
+}
+
+function openLogin(){
+document.getElementById("loginModal").style.display="flex";
+}
+
+function closeLogin(){
+document.getElementById("loginModal").style.display="none";
+alert("Login Successful");
+}
+
+</script>
+
+</body>
+</html>
